@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Image, Text, Button } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import logo from "../assets/static/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
 
