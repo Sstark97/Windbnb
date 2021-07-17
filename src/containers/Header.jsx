@@ -1,14 +1,18 @@
 import React from "react";
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import logo from "../assets/static/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
 
 const Header = () => {
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
+
   return (
-    <Flex direction="column">
-      <Flex width="10rem">
-        <Image src={logo} />
-      </Flex>
+    <Flex
+      direction={isLargerThan600 ? "row" : "column"}
+      justifyContent="space-between"
+      alignItems={isLargerThan600 ? "center" : ""}
+    >
+      <Image src={logo} width="9.6rem" height="1.9rem" />
 
       <Flex
         width="29.7rem"
@@ -38,7 +42,10 @@ const Header = () => {
           height="100%"
           borderRight="1px solid #F2F2F2"
         >
-          <Text fontSize="2xl" color="#BDBDBD"> Add guests </Text>
+          <Text fontSize="2xl" color="#BDBDBD">
+            {" "}
+            Add guests{" "}
+          </Text>
         </Flex>
 
         <Flex
@@ -47,7 +54,7 @@ const Header = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <AiOutlineSearch size="1.7rem" color="#EB5757E5"/>
+          <AiOutlineSearch size="1.7rem" color="#EB5757E5" />
         </Flex>
       </Flex>
     </Flex>

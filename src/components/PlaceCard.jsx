@@ -19,7 +19,7 @@ const PlaceCard = ({
         src={photo}
         alt="Place Photo"
         width="33rem"
-        maxHeight="23.8rem"
+        height="23.8rem"
         borderRadius="2.4rem"
       />
     </Box>

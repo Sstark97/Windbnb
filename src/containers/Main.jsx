@@ -1,33 +1,62 @@
 import React, { useEffect } from "react";
-import { Flex, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Flex, Text, Wrap, WrapItem, List, ListItem } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { connect } from "react-redux";
 import { getPlaces } from "../actions";
 import PlaceCard from "../components/PlaceCard";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const Main = (props) => {
   useEffect(() => {
     props.getPlaces();
   }, []);
 
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
+
   return (
     <Flex direction="column" width="100%">
       {console.log(props.places)}
 
-      <Flex alignItems="center" width="100%" justifyContent="space-between">
-        <Text fontSize="1.8rem" fontWeight="extrabold" justifySelf="flex-start">
+      <Flex
+        alignItems="center"
+        width="80%"
+        justifyContent="space-between"
+        alignSelf="center"
+      >
+        <Text
+          fontSize="1.8rem"
+          fontWeight="extrabold"
+          justifySelf="flex-start"
+          marginRight="2rem"
+        >
           {" "}
           Stays in {props.places[0].country}
         </Text>
-        <Text justifySelf="flex-end" fontSize="1.4rem" fontWeight="light">
+        <Text
+          justifySelf="flex-end"
+          fontSize="1.4rem"
+          fontWeight="light"
+          color="#4F4F4F"
+        >
           {" "}
-          {props.places.length > 12 ? "12+" : props.places.length}
+          {props.places.length > 12 ? "12+ stays" : props.places.length}
         </Text>
       </Flex>
 
-      <Wrap marginTop="2rem" maxWidth="33rem">
+      <List
+        display="flex"
+        marginTop="2rem"
+        width="100%"
+        justifyContent="center"
+        direction="row"
+        flexWrap="wrap"
+      >
         {props.places.map((place) => (
-          <WrapItem key={uuidv4()} maxWidth="33rem">
+          <ListItem
+            key={uuidv4()}
+            margin={isLargerThan600 ? "3rem" : "none"}
+            marginTop={isLargerThan600 ? "none" : "2rem"}
+          >
             <PlaceCard
               beds={place.beds}
               photo={place.photo}
@@ -36,9 +65,9 @@ const Main = (props) => {
               title={place.title}
               type={place.type}
             />
-          </WrapItem>
+          </ListItem>
         ))}
-      </Wrap>
+      </List>
     </Flex>
   );
 };
