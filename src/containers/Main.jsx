@@ -14,7 +14,11 @@ const Main = (props) => {
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   return (
-    <Flex direction="column" width="100%">
+    <Flex
+      direction="column"
+      width="100%"
+      marginTop={isLargerThan600 ? "12rem" : "6rem"}
+    >
       {console.log(props.places)}
 
       <Flex
