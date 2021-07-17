@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Flex, Text, Input } from "@chakra-ui/react";
+import { Flex, List, ListItem, Input, Text } from "@chakra-ui/react";
+import { HiLocationMarker } from "react-icons/hi";
+import { v4 as uuidv4 } from "uuid";
 import { connect } from "react-redux";
 import { getPlaces } from "../actions";
 
@@ -29,7 +31,7 @@ const LocationInput = (props) => {
   };
 
   return (
-    <Flex>
+    <Flex direction="column" width="100%" height="100%">
       <Input
         placeholder="Find a Location"
         boxSizing="border-box"
@@ -38,6 +40,19 @@ const LocationInput = (props) => {
         value={search}
         onChange={handleSearch}
       />
+
+      {filteredLocation.length > 0 ? (
+        <List>
+          {filteredLocation.map((place) => (
+            <ListItem key={uuidv4()}>
+              <HiLocationMarker />
+              <Text>{place}</Text>
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <></>
+      )}
     </Flex>
   );
 };
