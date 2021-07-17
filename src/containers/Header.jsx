@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import logo from "../assets/static/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
+import SearchDrawer from "./SearchDrawer";
 
 const Header = () => {
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const handleOpenDrawer = () => setOpenDrawer(true);
+
+  const handleCloseDrawer = () => setOpenDrawer(false);
 
   return (
     <Flex
@@ -32,7 +38,10 @@ const Header = () => {
           height="100%"
           borderRight="1px solid #F2F2F2"
         >
-          <Text fontSize="2xl"> Helsinki, Finland </Text>
+          <Text fontSize="2xl" onClick={handleOpenDrawer}>
+            {" "}
+            Helsinki, Finland{" "}
+          </Text>
         </Flex>
 
         <Flex
@@ -57,6 +66,8 @@ const Header = () => {
           <AiOutlineSearch size="1.7rem" color="#EB5757E5" />
         </Flex>
       </Flex>
+
+      <SearchDrawer open={openDrawer} handleCloseDrawer={handleCloseDrawer} />
     </Flex>
   );
 };

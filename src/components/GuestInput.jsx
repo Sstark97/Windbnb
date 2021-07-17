@@ -17,11 +17,12 @@ const GuestInput = (props) => {
     <Flex direction="column" width="100%" height="100%">
       <Input
         placeholder="Add guests"
+        fontSize="2xl"
         boxSizing="border-box"
         border="1px solid #333333"
         borderRadius="1.6rem"
-        value={search}
-        onChange={handleSearch}
+        boxShadow="0px 1px 6px rgba(0, 0, 0, 0.1)"
+        height="5.5rem"
         readOnly
       />
 
