@@ -33,7 +33,7 @@ const LocationInput = (props) => {
   return (
     <Flex direction="column" width="100%" height="100%">
       <Input
-        placeholder="Find a Location"
+        placeholder="Add a Location"
         boxSizing="border-box"
         border="1px solid #333333"
         borderRadius="1.6rem"
