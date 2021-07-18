@@ -18,7 +18,17 @@ const reducer = (state, action) => {
                 ...state,
                 location: state.location || {}
             };
-
+        case 'SET_GUESTS':
+            return {
+                ...state,
+                guests: action.payload || {}
+            }
+        case 'GET_GUESTS':
+            return {
+                ...state,
+                guests: state.location || {}
+            };
+    
         default:
             return state;
     }

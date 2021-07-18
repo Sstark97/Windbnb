@@ -12,3 +12,13 @@ export const getLocation = (payload) => ({
     type: 'GET_LOCATION',
     payload,
 });
+
+export const setGuests = (payload) => ({
+    type: 'SET_GUESTS',
+    payload,
+});
+
+export const getGuests = (payload) => ({
+    type: 'GET_GUESTS',
+    payload,
+});
