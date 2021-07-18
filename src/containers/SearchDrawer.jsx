@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
 import GuestInput from "../components/GuestInput";
-import LocationInput from "../components/LocationInput";
+import LocationInput from "../containers/LocationInput";
 
 const SearchDrawer = ({ open, handleCloseDrawer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

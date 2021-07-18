@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import {
   Flex,
   Input,
-  NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
@@ -10,18 +9,24 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { connect } from "react-redux";
-import { getPlaces } from "../actions";
-
+import { getPlaces, getLocation } from "../actions";
+import NumberInput from "./NumberInput";
 const GuestInput = (props) => {
   const [focus, setFocus] = useState(false);
+  const [maxGuest, setMaxGuest] = useState(0);
+  const [guest, setGuest] = useState(0);
+  const btnRef = useRef();
 
   const handleSetFocusInput = () => {
     setFocus(!focus);
+    props.getLocation();
+    setMaxGuest(Number(props.location.maxGuests));
   };
 
-  const handleSetBlurInput = () => {
-    setFocus(false);
+  const handleGuestChange = (value) => {
+    setGuest(Number(value));
   };
+
   return (
     <Flex direction="column" width="100%" height="100%">
       <Input
@@ -34,6 +39,8 @@ const GuestInput = (props) => {
         height="5.5rem"
         readOnly
         onFocus={handleSetFocusInput}
+        onChange={handleGuestChange}
+        value={guest !== 0 ? `${guest} guests` : ""}
       />
 
       <Flex
@@ -41,45 +48,13 @@ const GuestInput = (props) => {
         display={focus ? "flex" : "none"}
         fontSize="3xl"
         marginTop="4.2rem"
+        marginLeft="2.2rem"
       >
-        <Text fontWeight="extrabold">Adults</Text>
-        <Text color="#BDBDBD">Ages 13 or above</Text>
+        <Text fontWeight="extrabold">Guests</Text>
         <NumberInput
-          size="md"
-          maxW={40}
-          defaultValue={0}
-          min={0}
-          height="2.2rem"
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </Flex>
-
-      <Flex
-        direction="column"
-        display={focus ? "flex" : "none"}
-        fontSize="3xl"
-        marginTop="4.2rem"
-      >
-        <Text fontWeight="extrabold">Children</Text>
-        <Text color="#BDBDBD">Ages 2-12</Text>
-        <NumberInput
-          size="md"
-          maxW={40}
-          defaultValue={0}
-          min={0}
-          height="2.2rem"
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+          handleGuestChange={handleGuestChange}
+          maxValue={maxGuest}
+        ></NumberInput>
       </Flex>
     </Flex>
   );
@@ -88,11 +63,13 @@ const GuestInput = (props) => {
 const mapStateToProps = (state) => {
   return {
     places: state.places,
+    location: state.location,
   };
 };
 
 const mapDispatchToProps = {
   getPlaces,
+  getLocation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuestInput);

@@ -12,6 +12,7 @@ const LocationInput = (props) => {
       return {
         id: index,
         place: `${place.city}, ${place.country}`,
+        maxGuests: place.maxGuests,
       };
     });
     setPlaces(places);
