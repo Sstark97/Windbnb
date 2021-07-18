@@ -7,6 +7,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { connect } from "react-redux";
 import { getLocation } from "../actions";
@@ -14,6 +15,7 @@ import NumberInput from "./NumberInput";
 const GuestInput = (props) => {
   const [focus, setFocus] = useState(false);
   const [guest, setGuest] = useState(0);
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   const handleSetFocusInput = () => {
     setFocus(!focus);
@@ -34,6 +36,7 @@ const GuestInput = (props) => {
         borderRadius="1.6rem"
         boxShadow="0px 1px 6px rgba(0, 0, 0, 0.1)"
         height="5.5rem"
+        width={isLargerThan600 ? "" : "98%"}
         readOnly
         onFocus={handleSetFocusInput}
         value={guest !== 0 ? `${guest} guests` : ""}
@@ -45,6 +48,7 @@ const GuestInput = (props) => {
         fontSize="3xl"
         marginTop="4.2rem"
         marginLeft="2.2rem"
+        alignItems={isLargerThan600 ? "" : "center"}
       >
         <Text fontWeight="extrabold">Guests</Text>
         <NumberInput

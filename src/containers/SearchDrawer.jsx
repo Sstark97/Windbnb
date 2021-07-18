@@ -43,15 +43,27 @@ const SearchDrawer = ({ open, handleCloseDrawer, setFilteredLocations }) => {
                 direction={isLargerThan600 ? "row" : "column"}
                 marginLeft={isLargerThan600 ? "" : "1.4rem"}
               >
-                <Flex width="40%" justifyContent="center" height="100%">
+                <Flex
+                  width={isLargerThan600 ? "40%" : "100%"}
+                  justifyContent="center"
+                  height="100%"
+                >
                   <LocationInput />
                 </Flex>
 
-                <Flex width="40%" justifyContent="center" height="100%">
+                <Flex
+                  width={isLargerThan600 ? "40%" : "100%"}
+                  justifyContent="center"
+                  height="100%"
+                >
                   <GuestInput />
                 </Flex>
 
-                <Flex width="40%" justifyContent="center">
+                <Flex
+                  width="40%"
+                  justifyContent="center"
+                  alignSelf={isLargerThan600 ? "" : "center"}
+                >
                   <Button
                     background="#EB5757"
                     onClick={handleCloseInParent}

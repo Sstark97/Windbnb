@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Flex, List, ListItem, Input, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  List,
+  ListItem,
+  Input,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { HiLocationMarker } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
 import { connect } from "react-redux";
@@ -22,6 +29,7 @@ const LocationInput = (props) => {
   const [places, setPlaces] = useState([]);
   const [search, setSearch] = useState("");
   const [focus, setFocus] = useState(false);
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   const filteredLocation = useMemo(() => {
     console.log(places);
@@ -59,7 +67,11 @@ const LocationInput = (props) => {
   };
 
   return (
-    <Flex direction="column" width="100%" height="100%">
+    <Flex
+      direction={isLargerThan600 ? "column" : "row"}
+      width="100%"
+      height="100%"
+    >
       <Input
         placeholder="Add a Location"
         height="5.5rem"
@@ -69,6 +81,7 @@ const LocationInput = (props) => {
         border="1px solid #333333"
         borderRadius="1.6rem"
         boxShadow="0px 1px 6px rgba(0, 0, 0, 0.1)"
+        width={isLargerThan600 ? "" : "98%"}
         value={search}
         onChange={handleSearch}
         onBlur={handleResetFilteredLocations}
