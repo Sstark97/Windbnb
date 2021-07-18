@@ -8,27 +8,31 @@ import { getPlaces } from "../actions";
 const LocationInput = (props) => {
   useEffect(() => {
     props.getPlaces();
-    const places = props.places.map(
-      (place) => `${place.city}, ${place.country}`
-    );
+    const places = props.places.map((place, index) => {
+      return {
+        id: index,
+        place: `${place.city}, ${place.country}`,
+      };
+    });
     setPlaces(places);
     console.log(places);
   }, []);
 
   const [places, setPlaces] = useState([]);
   const [search, setSearch] = useState("");
+  const [focus, setFocus] = useState(false);
 
   const filteredLocation = useMemo(() => {
     console.log(places);
 
-    if (search === "") {
+    if (search === "" || focus === false) {
       return [];
     }
 
     return places.filter(
       (place) =>
-        place.toLowerCase().includes(search.toLowerCase()) ||
-        place.toLowerCase().includes(search.toLowerCase())
+        place.place.toLowerCase().includes(search.toLowerCase()) ||
+        place.place.toLowerCase().includes(search.toLowerCase())
     );
   }, [places, search]);
 
@@ -39,11 +43,25 @@ const LocationInput = (props) => {
     }
   };
 
+  const handleSetPlace = (id) => {
+    const place = places[id];
+    setSearch(place.place);
+  };
+
+  const handleResetFilteredLocations = () => {
+    setFocus(false);
+  };
+
+  const handleAbleInput = () => {
+    setFocus(true);
+  };
+
   return (
     <Flex direction="column" width="100%" height="100%">
       <Input
         placeholder="Add a Location"
         height="5.5rem"
+        minHeight="5.5rem"
         fontSize="2xl"
         boxSizing="border-box"
         border="1px solid #333333"
@@ -51,14 +69,29 @@ const LocationInput = (props) => {
         boxShadow="0px 1px 6px rgba(0, 0, 0, 0.1)"
         value={search}
         onChange={handleSearch}
+        onBlur={handleResetFilteredLocations}
+        onFocus={handleAbleInput}
       />
 
       {filteredLocation.length > 0 ? (
-        <List>
+        <List marginTop="1.5rem" overflow="hidden">
           {filteredLocation.map((place) => (
-            <ListItem key={uuidv4()}>
+            <ListItem
+              key={uuidv4()}
+              display="flex"
+              alignItems="center"
+              marginTop="4.2rem"
+            >
               <HiLocationMarker />
-              <Text>{place}</Text>
+              <Text
+                fontSize="3xl"
+                marginLeft="0.2rem"
+                onClick={() => {
+                  handleSetPlace(place.id);
+                }}
+              >
+                {place.place}
+              </Text>
             </ListItem>
           ))}
         </List>
