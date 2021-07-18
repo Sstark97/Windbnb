@@ -7,3 +7,8 @@ export const setLocation = (payload) => ({
     type: 'SET_LOCATION',
     payload,
 });
+
+export const getLocation = (payload) => ({
+    type: 'GET_LOCATION',
+    payload,
+});
