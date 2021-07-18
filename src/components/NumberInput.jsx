@@ -45,14 +45,8 @@ const NumberInput = ({ maxValue, handleGuestChange, setGuests }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    guests: state.guests,
-  };
-};
-
 const mapDispatchToProps = {
   setGuests,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NumberInput);
+export default connect(null, mapDispatchToProps)(NumberInput);

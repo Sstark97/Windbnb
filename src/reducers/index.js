@@ -26,7 +26,7 @@ const reducer = (state, action) => {
         case 'GET_GUESTS':
             return {
                 ...state,
-                guests: state.location || {}
+                guests: state.guests || {}
             };
 
         case 'SET_FILTERED_LOCATION':

@@ -3,14 +3,20 @@ import { Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import logo from "../assets/static/logo.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import SearchDrawer from "./SearchDrawer";
+import { connect } from "react-redux";
+import { getLocation, getGuests } from "../actions";
 
-const Header = () => {
+const Header = (props) => {
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const handleOpenDrawer = () => setOpenDrawer(true);
 
-  const handleCloseDrawer = () => setOpenDrawer(false);
+  const handleCloseDrawer = () => {
+    props.getLocation();
+    props.getGuests();
+    setOpenDrawer(false);
+  };
 
   return (
     <Flex
@@ -38,10 +44,16 @@ const Header = () => {
           height="100%"
           borderRight="1px solid #F2F2F2"
         >
-          <Text fontSize="2xl" onClick={handleOpenDrawer}>
-            {" "}
-            Helsinki, Finland{" "}
-          </Text>
+          {props.location.place === undefined ? (
+            <Text fontSize="2xl" onClick={handleOpenDrawer} color="#BDBDBD">
+              {" "}
+              Add Location{" "}
+            </Text>
+          ) : (
+            <Text fontSize="2xl" onClick={handleOpenDrawer}>
+              {props.location.place} {console.log(props.location.place)}
+            </Text>
+          )}
         </Flex>
 
         <Flex
@@ -51,10 +63,15 @@ const Header = () => {
           height="100%"
           borderRight="1px solid #F2F2F2"
         >
-          <Text fontSize="2xl" color="#BDBDBD">
-            {" "}
-            Add guests{" "}
-          </Text>
+          {typeof props.guests !== "string" ? (
+            <Text fontSize="2xl" onClick={handleOpenDrawer} color="#BDBDBD">
+              Add Guests{" "}
+            </Text>
+          ) : (
+            <Text fontSize="2xl" onClick={handleOpenDrawer}>
+              {`${props.guests} stays`}
+            </Text>
+          )}
         </Flex>
 
         <Flex
@@ -72,4 +89,16 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    location: state.location,
+    guests: state.guests,
+  };
+};
+
+const mapDispatchToProps = {
+  getLocation,
+  getGuests,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

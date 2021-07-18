@@ -63,14 +63,8 @@ const SearchDrawer = ({ open, handleCloseDrawer, setFilteredLocations }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    filteredLocations: state.filteredLocations,
-  };
-};
-
 const mapDispatchToProps = {
   setFilteredLocations,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchDrawer);
+export default connect(null, mapDispatchToProps)(SearchDrawer);
