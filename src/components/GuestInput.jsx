@@ -9,18 +9,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { connect } from "react-redux";
-import { getPlaces, getLocation } from "../actions";
+import { getLocation } from "../actions";
 import NumberInput from "./NumberInput";
 const GuestInput = (props) => {
   const [focus, setFocus] = useState(false);
-  const [maxGuest, setMaxGuest] = useState(0);
   const [guest, setGuest] = useState(0);
-  const btnRef = useRef();
 
   const handleSetFocusInput = () => {
     setFocus(!focus);
     props.getLocation();
-    setMaxGuest(Number(props.location.maxGuests));
   };
 
   const handleGuestChange = (value) => {
@@ -39,7 +36,6 @@ const GuestInput = (props) => {
         height="5.5rem"
         readOnly
         onFocus={handleSetFocusInput}
-        onChange={handleGuestChange}
         value={guest !== 0 ? `${guest} guests` : ""}
       />
 
@@ -53,7 +49,7 @@ const GuestInput = (props) => {
         <Text fontWeight="extrabold">Guests</Text>
         <NumberInput
           handleGuestChange={handleGuestChange}
-          maxValue={maxGuest}
+          maxValue={Number(props.location.maxGuests)}
         ></NumberInput>
       </Flex>
     </Flex>
@@ -62,14 +58,14 @@ const GuestInput = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    places: state.places,
     location: state.location,
+    // guests: state.guests,
   };
 };
 
 const mapDispatchToProps = {
-  getPlaces,
   getLocation,
+  //   setGuests,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuestInput);

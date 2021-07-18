@@ -10,15 +10,18 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { connect } from "react-redux";
+import { setFilteredLocations } from "../actions";
 import { AiOutlineSearch } from "react-icons/ai";
 import GuestInput from "../components/GuestInput";
 import LocationInput from "../containers/LocationInput";
 
-const SearchDrawer = ({ open, handleCloseDrawer }) => {
+const SearchDrawer = ({ open, handleCloseDrawer, setFilteredLocations }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleCloseInParent = () => {
     handleCloseDrawer();
+    setFilteredLocations();
   };
 
   return (
@@ -60,4 +63,14 @@ const SearchDrawer = ({ open, handleCloseDrawer }) => {
   );
 };
 
-export default SearchDrawer;
+const mapStateToProps = (state) => {
+  return {
+    filteredLocations: state.filteredLocations,
+  };
+};
+
+const mapDispatchToProps = {
+  setFilteredLocations,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchDrawer);

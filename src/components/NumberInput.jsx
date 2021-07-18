@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
 import { useNumberInput, Input, Button, HStack } from "@chakra-ui/react";
+import { connect } from "react-redux";
+import { setGuests } from "../actions";
 
-const NumberInput = ({ maxValue, handleGuestChange }) => {
+const NumberInput = ({ maxValue, handleGuestChange, setGuests }) => {
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
@@ -19,16 +21,12 @@ const NumberInput = ({ maxValue, handleGuestChange }) => {
   const handleGuestChangeInSon = () => {
     const value = inputRef?.current?.value;
     handleGuestChange(value);
+    setGuests(value);
   };
 
   return (
     <HStack maxW="320px" width="50%">
-      <Button
-        {...inc}
-        border="1px solid #828282"
-        background="#fff"
-        isDisabled={inputRef?.current?.value === maxValue}
-      >
+      <Button {...inc} border="1px solid #828282" background="#fff">
         +
       </Button>
       <Input
@@ -47,4 +45,14 @@ const NumberInput = ({ maxValue, handleGuestChange }) => {
   );
 };
 
-export default NumberInput;
+const mapStateToProps = (state) => {
+  return {
+    guests: state.guests,
+  };
+};
+
+const mapDispatchToProps = {
+  setGuests,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NumberInput);

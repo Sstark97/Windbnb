@@ -22,3 +22,13 @@ export const getGuests = (payload) => ({
     type: 'GET_GUESTS',
     payload,
 });
+
+export const setFilteredLocations = (payload) => ({
+    type: 'SET_FILTERED_LOCATION',
+    payload,
+});
+
+export const getFilteredLocations = (payload) => ({
+    type: 'GET_FILTERED_LOCATION',
+    payload,
+});

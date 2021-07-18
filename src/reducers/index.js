@@ -28,6 +28,18 @@ const reducer = (state, action) => {
                 ...state,
                 guests: state.location || {}
             };
+
+        case 'SET_FILTERED_LOCATION':
+            return {
+                ...state,
+                filteredLocations: state.places !== undefined && state.location !== undefined && state.guests !== undefined ? state.places.filter(place => state.location.place === `${place.city}, ${place.country}` && Number(state.guests) <= place.maxGuests) : []
+            }
+
+        case 'GET_FILTERED_LOCATION':
+            return {
+                ...state,
+                filteredLocations: state.filteredLocations || {}
+            };
     
         default:
             return state;
