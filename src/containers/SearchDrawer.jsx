@@ -9,6 +9,7 @@ import {
   useDisclosure,
   Flex,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { connect } from "react-redux";
 import { setFilteredLocations } from "../actions";
@@ -18,6 +19,8 @@ import LocationInput from "../containers/LocationInput";
 
 const SearchDrawer = ({ open, handleCloseDrawer, setFilteredLocations }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   const handleCloseInParent = () => {
     handleCloseDrawer();
@@ -30,8 +33,16 @@ const SearchDrawer = ({ open, handleCloseDrawer, setFilteredLocations }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody size="4xl">
-            <Flex height="40vh" justifyContent="center" marginTop="9.3rem">
-              <Flex width="80%">
+            <Flex
+              height={isLargerThan600 ? "40vh" : "80vh"}
+              justifyContent="center"
+              marginTop={isLargerThan600 ? "9.3rem" : "2.2rem"}
+            >
+              <Flex
+                width="80%"
+                direction={isLargerThan600 ? "row" : "column"}
+                marginLeft={isLargerThan600 ? "" : "1.4rem"}
+              >
                 <Flex width="40%" justifyContent="center" height="100%">
                   <LocationInput />
                 </Flex>
