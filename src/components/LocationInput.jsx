@@ -3,7 +3,7 @@ import { Flex, List, ListItem, Input, Text } from "@chakra-ui/react";
 import { HiLocationMarker } from "react-icons/hi";
 import { v4 as uuidv4 } from "uuid";
 import { connect } from "react-redux";
-import { getPlaces } from "../actions";
+import { getPlaces, setLocation } from "../actions";
 
 const LocationInput = (props) => {
   useEffect(() => {
@@ -46,6 +46,7 @@ const LocationInput = (props) => {
   const handleSetPlace = (id) => {
     const place = places[id];
     setSearch(place.place);
+    props.setLocation(place);
   };
 
   const handleResetFilteredLocations = () => {
@@ -105,11 +106,13 @@ const LocationInput = (props) => {
 const mapStateToProps = (state) => {
   return {
     places: state.places,
+    location: state.location,
   };
 };
 
 const mapDispatchToProps = {
   getPlaces,
+  setLocation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationInput);
