@@ -14,15 +14,17 @@ import { getPlaces, setLocation } from "../actions";
 
 const LocationInput = (props) => {
   useEffect(() => {
-    props.getPlaces();
-    const places = props.places.map((place, index) => {
+    const { getPlaces } = props;
+    getPlaces();
+    const { places } = props;
+    const locations = places.map((place, index) => {
       return {
         id: index,
         place: `${place.city}, ${place.country}`,
         maxGuests: place.maxGuests,
       };
     });
-    setPlaces(places);
+    setPlaces(locations);
     console.log(places);
   }, []);
 
