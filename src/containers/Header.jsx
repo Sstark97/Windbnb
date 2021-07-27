@@ -43,8 +43,9 @@ const Header = (props) => {
           width="13.8rem"
           height="100%"
           borderRight="1px solid #F2F2F2"
+          cursor="pointer"
         >
-          {props.location.place === undefined ? (
+          {props.location.place === undefined || props.guests === "0" ? (
             <Text fontSize="2xl" onClick={handleOpenDrawer} color="#BDBDBD">
               {" "}
               Add Location{" "}
@@ -62,8 +63,9 @@ const Header = (props) => {
           width="10.6rem"
           height="100%"
           borderRight="1px solid #F2F2F2"
+          cursor="pointer"
         >
-          {typeof props.guests !== "string" ? (
+          {typeof props.guests !== "string" || props.guests === "0" ? (
             <Text fontSize="2xl" onClick={handleOpenDrawer} color="#BDBDBD">
               Add Guests{" "}
             </Text>

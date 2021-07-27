@@ -67,11 +67,7 @@ const LocationInput = (props) => {
   };
 
   return (
-    <Flex
-      direction={isLargerThan600 ? "column" : "row"}
-      width="100%"
-      height="100%"
-    >
+    <Flex direction="column" width="100%" height="100%">
       <Input
         placeholder="Add a Location"
         height="5.5rem"
@@ -89,17 +85,22 @@ const LocationInput = (props) => {
       />
 
       {filteredLocation.length > 0 ? (
-        <List marginTop="1.5rem" overflow="hidden">
+        <List
+          marginTop="1.5rem"
+          overflow="hidden"
+          marginLeft="2rem"
+          marginBottom="1.5rem"
+        >
           {filteredLocation.map((place) => (
             <ListItem
               key={uuidv4()}
               display="flex"
               alignItems="center"
-              marginTop="4.2rem"
+              marginTop={isLargerThan600 ? "4.2rem" : "1.2rem"}
             >
               <HiLocationMarker />
               <Text
-                fontSize="3xl"
+                fontSize={isLargerThan600 ? "3xl" : "large"}
                 marginLeft="0.2rem"
                 onClick={() => {
                   handleSetPlace(place.id);
