@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
   Drawer,
   DrawerBody,
   DrawerOverlay,
-  DrawerHeader,
   DrawerContent,
   useDisclosure,
   Flex,
@@ -18,7 +17,7 @@ import GuestInput from "../components/GuestInput";
 import LocationInput from "../containers/LocationInput";
 
 const SearchDrawer = ({ open, handleCloseDrawer, setFilteredLocations }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
 
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 

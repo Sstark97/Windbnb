@@ -1,14 +1,5 @@
-import React, { useEffect, useMemo, useState, useRef } from "react";
-import {
-  Flex,
-  Input,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Text,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Flex, Input, Text, useMediaQuery } from "@chakra-ui/react";
 import { connect } from "react-redux";
 import { getLocation } from "../actions";
 import NumberInput from "./NumberInput";
